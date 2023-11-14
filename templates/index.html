@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"/>
+	    <title>Terabox redirect download link</title>
+  </head>
+  <body>
+    <section>
+        <div class="container">
+                <div class="form">
+                        <img width="220" height="150" src="static/assets/terabox.png"/>
+                    <form action="/get" method="POST">
+                        <input class="form-username" type="text" name="link" placeholder="Masukan link terabox..." /><br />
+                        <input class="button_submit" type="submit" name="login" value="submit" />
+                    </form>
+                </div>
+                {% if filename %}
+                    <div class="form-2">
+                        <center><h3>Result</h3></center>
+                        <p>Filename : {{filename}}</p>
+                        {% if size %}
+                        <p>Size : {{size}}</p>
+                        {% endif %}
+                        {% if tanggal %}
+                        <p>Tanggal apload : {{tanggal}}</p>
+                        {% endif %}
+                        {% if link %}
+                        <button class="button_submit" type="button"><a style="text-decoration: none; color: black;" href="{{link}}">Download</a></button>
+                        {% endif %}
+                        {% if link %}
+                            <button class="button_submit" type="button" id="copyButton">Copy Link</button>
+                            <div style="display: none;" id="textToCopy">{{link}}</div>
+                        {% endif %}
+                        {% if eror %}
+                        <p>{{eror}}</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+        </div>
+    </section>
+    <div class="copyright">
+        <h3>2023 © By Wahyu Andre Wibowo</h3>
+    </div>
+    <script>
+        document.getElementById('copyButton').addEventListener('click', function() {
+            var textToCopy = document.getElementById('textToCopy');
+            var tempTextArea = document.createElement('textarea');
+            tempTextArea.value = textToCopy.innerText;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+            alert('Teks telah disalin ke clipboard');
+        });
+    </script>     
+</body>
+</html>
